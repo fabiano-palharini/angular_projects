@@ -8,8 +8,9 @@
             "type": "chrome",
             "request": "launch",
             "name": "Angular",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "ng serve"
         }
     ]
 }
