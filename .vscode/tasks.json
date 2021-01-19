@@ -1,0 +1,60 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "uvicorn",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": "uvicorn",
+            "args": [
+                "main:application",
+                "--reload"
+            ]
+        },
+        {
+            "label": "ng build",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/app/frontend/"
+            },
+            "command": "ng",
+            "args": [
+                "build",
+                "--watch"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "angular",
+                "severity": "error",
+                "fileLocation": "relative",
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": {
+                        "regexp": ".*"
+                    },
+                    "endsPattern": {
+                        "regexp": "Time:\\s[0-9]+ms"
+                    },
+                },
+                "pattern": [
+                    {
+                        "regexp": "ERROR in (.*)\\(",
+                        "file": 1
+                    },
+                    {
+                        "regexp": "\\((\\d+),(\\d+)\\):(.*)",
+                        "line": 1,
+                        "column": 2,
+                        "message": 3
+                    }
+                ]
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "group": "build"
+        }
+    ]
+}
