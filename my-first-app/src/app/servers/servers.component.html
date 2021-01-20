@@ -2,6 +2,12 @@
 <!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)"> -->
 <input type="text" class="form-control" [(ngModel)]="serverName">
 <!-- <p>{{ serverName }}</p> -->
+<p *ngIf="showServer; else noServer">{{ serverName }}</p>
+<ng-template #noServer>
+  <p>NOOOOOOOOOO server</p>
+</ng-template>
 <button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateServer()">Create</button>
 <p [innerText]="allowNewServer"></p>
 <p>{{ serverCreationStatus }}</p>
+<p [ngClass]='{testColor: getColor()}'>TEST 1 CSS</p>
+<p [ngStyle]="{'background-color': getColor()}">TEST 2 CSS</p>
