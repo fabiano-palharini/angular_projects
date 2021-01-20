@@ -11,3 +11,4 @@
 <p>{{ serverCreationStatus }}</p>
 <p [ngClass]='{testColor: getColor()}'>TEST 1 CSS</p>
 <p [ngStyle]="{'background-color': getColor()}">TEST 2 CSS</p>
+<p *ngFor="let server of servers">{{server}}</p>

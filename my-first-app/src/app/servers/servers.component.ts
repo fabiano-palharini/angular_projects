@@ -13,6 +13,7 @@ export class ServersComponent implements OnInit {
   showServer: boolean = false;
   color: string;
   fontColor: boolean;
+  servers: string[] = ['Test Server 1', 'Test Server 2'];
 
   constructor() {
     this.onTimeout();
@@ -41,6 +42,8 @@ export class ServersComponent implements OnInit {
       this.serverCreationStatus = "Server was created! The name is " + this.serverName;
       this.allowNewServer = false;
       this.onTimeout();
+      this.servers.push(this.serverName);
+      this.serverName = '';
     }
   }
 
