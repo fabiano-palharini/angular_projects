@@ -8,11 +8,12 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'assignment03';
   numberOfClicks: number[] = [];
-  counter: number = 0;
+  show: boolean = false;
+
 
   onClick() {
+    this.show = !this.show;
     this.numberOfClicks.push((this.numberOfClicks).length + 1);
-    this.counter++;
-    console.log(this.counter);
+    console.log(this.numberOfClicks);
   }
 }

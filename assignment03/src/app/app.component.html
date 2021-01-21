@@ -1,3 +1,8 @@
-<button (click)="onClick()">Display Details</button>
-<p>Secret password = 'tuna'</p>
-<p *ngFor="let click of numberOfClicks;" [ngStyle]="{'color': red}">{{click}}</p>
+<button class="btn btn-primary" (click)="onClick()">Display Details</button>
+<p *ngIf="show">Any text</p>
+<div *ngFor="let click of numberOfClicks; let i = index">
+  <p *ngIf="i < 4 else fiveOrGreater">{{click}}</p>
+  <ng-template #fiveOrGreater>
+    <p  [ngStyle] = "{ backgroundColor: 'blue' }" [ngClass]="{whiteText: true}">{{ click }}</p>
+  </ng-template>
+</div>
