@@ -7,13 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'assignment03';
-  numberOfClicks: number[] = [];
+  items: Date[] = [];
   show: boolean = false;
 
 
   onClick() {
     this.show = !this.show;
-    this.numberOfClicks.push((this.numberOfClicks).length + 1);
-    console.log(this.numberOfClicks);
+    this.items.push(new Date());
+    console.log(this.items);
   }
 }
