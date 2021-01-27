@@ -3,8 +3,8 @@
     app working!
     <app-game-control (start)="onStart($event)"></app-game-control>
     <div *ngFor='let num of numbers'>
-      <app-odd *ngIf='num%2!==0'></app-odd>
-      <app-even *ngIf='num%2===0'></app-even>
+      <app-odd *ngIf='num%2!==0' [oddNbr]='num'></app-odd>
+      <app-even *ngIf='num%2===0' [evenNumber]='num'></app-even>
     </div>
   </div>
 </div>
