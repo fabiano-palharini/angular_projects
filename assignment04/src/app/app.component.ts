@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'assignment04';
+  numbers: number[] = [];
+
+  onStart(counter: number){
+    console.log('contador: ' + counter);
+    this.numbers.push(counter);
+  }
 }
