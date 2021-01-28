@@ -13,11 +13,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onRecipesClick(featureName: string) {
+  onSelected(featureName: string) {
     this.clickedFeature.emit(featureName);
   }
 
-  onShoppingListClick(featureName: string) {
-    this.clickedFeature.emit(featureName);
-  }
 }
