@@ -1,13 +1,9 @@
+<app-header (clickedFeature)="onMenuClicked($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-header></app-header>
-      <app-recipes></app-recipes>
-      <app-recipe-detail></app-recipe-detail>
-      <app-recipe-list></app-recipe-list>
-      <app-recipe-item></app-recipe-item>
-      <app-shopping-list></app-shopping-list>
-      <app-shopping-edit></app-shopping-edit>
+      <app-recipes *ngIf="featureSelected==='recipe'"></app-recipes>
+      <app-shopping-list *ngIf="featureSelected==='shopping-list'"></app-shopping-list>
     </div>
   </div>
 </div>
