@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'basic-directives';
+  onlyOdd = false;
+  odds = [1,3,5];
+  evens = [2,4];
 }
