@@ -1,35 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AccountsService } from './accounts.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [AccountsService]
 })
-export class AppComponent {
-  accounts = [
-    {
-      name: 'Master Account',
-      status: 'active'
-    },
-    {
-      name: 'Testaccount',
-      status: 'inactive'
-    },
-    {
-      name: 'Hidden Account',
-      status: 'unknown'
-    }
-  ];
+export class AppComponent implements OnInit{
 
-  onAccountAdded(newAccount: {name: string, status: string}) {
-    console.log('antes do metodo onAccountAdded');
-    this.accounts.push(newAccount);
-    console.log('depois do metodo onAccountAdded');
+  accounts: {name: string, status: string}[] = [];
+
+  constructor(private accountsService: AccountsService) { }
+
+  ngOnInit(): void {
+    this.accounts = this.accountsService.accounts;
   }
 
-  onStatusChanged(updateInfo: {id: number, newStatus: string}) {
-    console.log('antes do metodo onStatusChanged');
-    this.accounts[updateInfo.id].status = updateInfo.newStatus;
-    console.log('depois do metodo onStatusChanged');
-  }
+
+
+  // onAccountAdded(newAccount: {name: string, status: string}) {
+  //   console.log('antes do metodo onAccountAdded');
+  //   this.accounts.push(newAccount);
+  //   console.log('depois do metodo onAccountAdded');
+  // }
+
+  // onStatusChanged(updateInfo: {id: number, newStatus: string}) {
+  //   console.log('antes do metodo onStatusChanged');
+  //   this.accounts[updateInfo.id].status = updateInfo.newStatus;
+  //   console.log('depois do metodo onStatusChanged');
+  // }
 }
