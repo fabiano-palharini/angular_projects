@@ -22,10 +22,14 @@ export class AppComponent {
   ];
 
   onAccountAdded(newAccount: {name: string, status: string}) {
+    console.log('antes do metodo onAccountAdded');
     this.accounts.push(newAccount);
+    console.log('depois do metodo onAccountAdded');
   }
 
   onStatusChanged(updateInfo: {id: number, newStatus: string}) {
+    console.log('antes do metodo onStatusChanged');
     this.accounts[updateInfo.id].status = updateInfo.newStatus;
+    console.log('depois do metodo onStatusChanged');
   }
 }
