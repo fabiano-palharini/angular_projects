@@ -25,6 +25,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         let counter: number = 0;
         setInterval(() => {
           observer.next(counter++);
+          if (counter === 2) {
+            observer.complete();
+          }
+          if (counter > 3) {
+            observer.error('We had an issue!');
+          }
         }, 1000);
       }
     );
@@ -33,7 +39,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       (dataFromObservable) => {
         console.log(dataFromObservable);
       }
-    )
+    , (error) => {
+      console.log(error);
+    },
+    () => {
+      console.log('completed!');
+    })
   }
 
   ngOnDestroy() {
