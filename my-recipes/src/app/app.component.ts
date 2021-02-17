@@ -7,12 +7,12 @@ import { Component,  } from '@angular/core';
 })
 export class AppComponent {
   title = 'my-recipes';
-  featureSelected: string;
+  // featureSelected: string;
 
   constructor() { }
 
 
-  onMenuClicked(menuName: string) {
-    this.featureSelected = menuName;
-  }
+  // onMenuClicked(menuName: string) {
+  //   this.featureSelected = menuName;
+  // }
 }
