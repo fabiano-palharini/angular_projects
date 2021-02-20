@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
-class User {
-  username: string;
-  email: string;
-  secret: string;
-}
+// class User {
+//   username: string;
+//   email: string;
+//   secret: string;
+// }
 
 @Component({
   selector: 'app-root',
@@ -12,13 +13,14 @@ class User {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  user: User = new User();
+  @ViewChild('f') signUpForm: NgForm;
+  // user: User = new User();
 
   suggestUserName() {
     const suggestedName = 'Superuser';
   }
 
   onSubmit(form: HTMLFormElement) {
-    console.log(form);
+    console.log(this.signUpForm);
   }
 }
