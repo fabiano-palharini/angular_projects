@@ -14,6 +14,8 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
   @ViewChild('f') signUpForm: NgForm;
+  defaultQuestion: string = 'pet';
+  answer: string;
   // user: User = new User();
 
   suggestUserName() {
