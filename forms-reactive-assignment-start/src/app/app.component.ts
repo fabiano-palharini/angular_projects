@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Observable'
+import { CustomValitors } from './custom-validator';
+
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.projectForm = new FormGroup({
       'projectData': new FormGroup({
-        'name': new FormControl(null, [Validators.required /*, this.forbiddenProjectNames.bind(this)*/], this.forbiddenProjectNames),
+        'name': new FormControl(null, [Validators.required /*, this.forbiddenProjectNames.bind(this)*/], CustomValitors.forbiddenProjectNames),
         'email': new FormControl(null, Validators.email),
         'status': new FormControl('critical', Validators.required),
       })
@@ -32,16 +33,5 @@ export class AppComponent implements OnInit {
   //   return null;
   // }
 
-  forbiddenProjectNames(control: FormControl): Promise<any> | Observable<any> {
-    const promise = new Promise<any>((resolve, reject) => {
-      setTimeout(() => {
-        if (control.value === 'Test') {
-          resolve({'nameIsForbidden': true})
-        } else {
-          resolve(null);
-        }
-      }, 1500);
-    });
-    return promise;
-  }
+
 }
