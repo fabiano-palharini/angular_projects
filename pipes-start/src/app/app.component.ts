@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   filteredStatus: string = '';
+
   servers = [
     {
       instanceType: 'medium',
@@ -33,6 +34,12 @@ export class AppComponent {
       started: new Date(2021, 2, 6)
     }
   ];
+
+  appStatus = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('stable');
+    }, 2000);
+  });
 
   getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
     return {
