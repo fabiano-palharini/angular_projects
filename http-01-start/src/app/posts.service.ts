@@ -8,13 +8,8 @@ export class PostsService {
   constructor(private http: HttpClient) {}
 
   createAndStorePost(postData: Post) {
-    this.http
-    .post<{name: string}>('https://my-test-project-9ddf9-default-rtdb.firebaseio.com/posts.json', postData)
-    .subscribe(
-      (responseData) => {
-        console.log(responseData);
-      }
-    );
+    return this.http
+        .post<{name: string}>('https://my-test-project-9ddf9-default-rtdb.firebaseio.com/posts.json', postData);
   }
 
   fetchPosts() {
@@ -31,5 +26,9 @@ export class PostsService {
           return postsArray;
         })
       );
+  }
+
+  deletePosts(){
+    return this.http.delete('https://my-test-project-9ddf9-default-rtdb.firebaseio.com/posts.json');
   }
 }

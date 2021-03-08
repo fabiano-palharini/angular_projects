@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Post } from './post.model';
 import { PostsService } from './posts.service';
 
@@ -21,7 +20,11 @@ export class AppComponent implements OnInit {
 
   onCreatePost(postData: Post) {
     //the .json below is a firebase requirement.
-    this.postsService.createAndStorePost(postData);
+    this.postsService.createAndStorePost(postData).subscribe(
+      () => {
+        this.fetchPosts();
+      }
+    );
   }
 
   onFetchPosts() {
@@ -29,7 +32,12 @@ export class AppComponent implements OnInit {
   }
 
   onClearPosts() {
-    // Send Http request
+    this.postsService.deletePosts().subscribe(
+      () => {
+        this.loadedPosts = [];
+        this.fetchPosts();
+      }
+    );
   }
 
   private fetchPosts()  {
