@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Post } from './post.model';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -24,11 +24,15 @@ export class PostsService {
   }
 
   fetchPosts() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty').append('test', 'yes');
+
     return this.http
       .get<{[key: string]: Post}>(
         'https://my-test-project-9ddf9-default-rtdb.firebaseio.com/posts.json',
         {
-          headers: new HttpHeaders({'Custom-Header': 'Hello'})
+          headers: new HttpHeaders({'Custom-Header': 'Hello'}),
+          params: searchParams
         }
       )
       .pipe(
