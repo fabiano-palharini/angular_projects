@@ -12,7 +12,12 @@ export class PostsService {
 
   createAndStorePost(postData: Post) {
     this.http
-      .post<{name: string}>('https://my-test-project-9ddf9-default-rtdb.firebaseio.com/posts.json', postData, {observe:'response'})
+      .post<{name: string}>('https://my-test-project-9ddf9-default-rtdb.firebaseio.com/posts.json',
+            postData,
+            {
+              observe:'response',
+              responseType: 'text'
+            })
       .subscribe(
         (responseData) => {
           console.log(responseData);
@@ -50,7 +55,10 @@ export class PostsService {
 
   deletePosts(){
     return this.http
-      .delete('https://my-test-project-9ddf9-default-rtdb.firebaseio.com/posts.json', {observe: 'events'})
+      .delete('https://my-test-project-9ddf9-default-rtdb.firebaseio.com/posts.json', {
+        observe: 'events',
+        responseType:  'text'//text, blob, json ... default is json
+      })
       .pipe(
         tap(event => {
           console.log(event);
