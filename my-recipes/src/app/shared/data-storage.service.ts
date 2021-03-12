@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RecipeService } from '../recipe.service';
+import { Recipe } from '../recipes/recipe-list/recipe.model';
 
 @Injectable({providedIn: 'root'}) //instead of doing this here we can also add this to the providers array in the app.module.ts
 export class DataStorageService {
@@ -17,5 +18,11 @@ export class DataStorageService {
     );
   }
 
-
+  fetchRecipes() {
+    this.http.get<Recipe[]>(this.dbUrl).subscribe(
+      response => {
+        this.recipeService.setRecipes(response);
+      }
+    );
+  }
 }
