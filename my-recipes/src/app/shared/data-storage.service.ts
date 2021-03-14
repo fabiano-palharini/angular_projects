@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipes/recipe-list/recipe.model';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'}) //instead of doing this here we can also add this to the providers array in the app.module.ts
 export class DataStorageService {
@@ -20,16 +20,16 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    this.http.get<Recipe[]>(this.dbUrl)
-    .pipe(map(recipes => {
-      return recipes.map(recipes => {
-        return {...recipes, ingredients: recipes.ingredients ? recipes.ingredients : []}
-      });
-    }))
-    .subscribe(
-      response => {
-        this.recipeService.setRecipes(response);
-      }
-    );
+    return this.http.get<Recipe[]>(this.dbUrl)
+            .pipe(
+              map(recipes => {
+                return recipes.map(recipe => {
+                  return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
+                });
+            }),
+              tap(recipes => {
+                this.recipeService.setRecipes(recipes);
+              })
+            );
   }
 }
