@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { AuthKeys } from '../../auth.keys';
 
 interface AuthResponseData {
   idToken: string;
@@ -12,10 +13,13 @@ interface AuthResponseData {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  apiKey = 'AIzaSyDdhG9JLy51R7B9JdIX8mxuDx1SOkSdQj4';
-  url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${apiKey}`
+  apiKey: string;
+  url: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.apiKey = AuthKeys.KEY;
+    this.url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`;
+  }
 
   signUp(email: string, password: string) {
     console.log(this.url);
