@@ -4,28 +4,31 @@ import { AuthKeys } from '../../auth.keys';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
-interface AuthResponseData {
+export interface AuthResponseData {
   idToken: string;
   email: string;
   refreshToken: string;
   expiresIn: string;
   localId: string;
+  registered?: boolean;
 }
 
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
   apiKey: string;
-  url: string;
+  signUpUrl: string;
+  signInUrl: string;
 
   constructor(private http: HttpClient) {
     this.apiKey = AuthKeys.KEY;
-    this.url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`;
+    this.signUpUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`;
+    this.signInUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`
   }
 
   signUp(email: string, password: string) {
-    console.log(this.url);
-    return this.http.post<AuthResponseData>(this.url,
+    console.log(this.signUpUrl);
+    return this.http.post<AuthResponseData>(this.signUpUrl,
               {
                 email: email,
                 password: password,
@@ -46,5 +49,16 @@ export class AuthService {
                 return throwError(errorMessage);
               })
             );
+  }
+
+
+  signIn(email: string, password: string) {
+    return this.http.post<AuthResponseData>(this.signInUrl,
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true
+      }
+    );
   }
 }
