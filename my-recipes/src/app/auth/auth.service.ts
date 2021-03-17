@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { AuthKeys } from '../../auth.keys';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError, Subject } from 'rxjs';
+import { User } from './user.model';
 
 export interface AuthResponseData {
   idToken: string;
@@ -19,6 +20,7 @@ export class AuthService {
   apiKey: string;
   signUpUrl: string;
   signInUrl: string;
+  user = new Subject<User>();
 
   constructor(private http: HttpClient) {
     this.apiKey = AuthKeys.KEY;
@@ -35,7 +37,10 @@ export class AuthService {
                 returnSecureToken: true
               }
             ).pipe(
-              catchError(this.handleError)
+              catchError(this.handleError),
+              tap(responseData => {
+                this.handleAuthentication(responseData.email, responseData.localId, responseData.idToken, +responseData.expiresIn);
+              })
             );
   }
 
@@ -51,6 +56,14 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
+
+
+  private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new User(email, userId, token, expirationDate);
+    this.user.next(user);
+  }
+
 
   private handleError(errorResponse:HttpErrorResponse) {
     let errorMessage = 'An error occurred!';
