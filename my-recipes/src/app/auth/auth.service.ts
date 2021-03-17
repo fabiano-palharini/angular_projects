@@ -45,6 +45,7 @@ export class AuthService {
   }
 
 
+
   signIn(email: string, password: string) {
     return this.http.post<AuthResponseData>(this.signInUrl,
       {
@@ -53,7 +54,10 @@ export class AuthService {
         returnSecureToken: true
       }
     ).pipe(
-      catchError(this.handleError)
+      catchError(this.handleError),
+      tap(responseData => {
+        this.handleAuthentication(responseData.email, responseData.localId, responseData.idToken, +responseData.expiresIn);
+      })
     );
   }
 
