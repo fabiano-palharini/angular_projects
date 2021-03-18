@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { AuthKeys } from '../../auth.keys';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError, Subject } from 'rxjs';
+import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 
 export interface AuthResponseData {
@@ -20,7 +20,8 @@ export class AuthService {
   apiKey: string;
   signUpUrl: string;
   signInUrl: string;
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
+
 
   constructor(private http: HttpClient) {
     this.apiKey = AuthKeys.KEY;
