@@ -76,16 +76,16 @@ export class AuthService {
 
 
   autoLogin() {
-    const userData : {email: string; id: string; _token: string, _token_ExpirationDate: string} = JSON.parse(localStorage.getItem('userData'));
+    const userData : {email: string; id: string; _token: string, _tokenExpirationDate: string} = JSON.parse(localStorage.getItem('userData'));
     if (!userData){
       return;
     }
 
-    const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._token_ExpirationDate));
+    const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
-      const expirationDuration =  new Date(userData._token_ExpirationDate).getTime() - new Date().getTime()
+      const expirationDuration =  new Date(Date.parse(userData._tokenExpirationDate)).getTime() - new Date().getTime()
       this.autoLogout(expirationDuration);
     }
   }
